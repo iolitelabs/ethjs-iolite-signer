@@ -28,6 +28,7 @@ const transactionFields = [
   { name: 'to', length: 20 },
   { name: 'value', maxLength: 32, number: true },
   { name: 'data' },
+  { name: 'metadata' },
 ];
 
 /**
