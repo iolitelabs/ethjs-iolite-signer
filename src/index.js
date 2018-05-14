@@ -21,6 +21,10 @@ function bnToBuffer(bn) {
   return stripZeros(new Buffer(padToEven(bn.toString(16)), 'hex'));
 }
 
+function rawToHex(raw) {
+  return `0x${rlp.encode(raw).toString('hex')}`;
+}
+
 const transactionFields = [
   { name: 'nonce', maxLength: 32, number: true },
   { name: 'gasPrice', maxLength: 32, number: true },
@@ -66,6 +70,10 @@ function recover(rawTx, v, r, s) {
  */
 
 function sign(transaction, privateKey, toObject) {
+  return signWeb3(transaction, privateKey, toObject).rawTransaction;
+}
+
+function signWeb3(transaction, privateKey, toObject) {
   if (typeof transaction !== 'object' || transaction === null) { throw new Error(`[ethjs-signer] transaction input must be a type 'object', got '${typeof(transaction)}'`); }
   if (typeof privateKey !== 'string') { throw new Error('[ethjs-signer] private key input must be a string'); }
   if (!privateKey.match(/^(0x)[0-9a-fA-F]{64}$/)) { throw new Error('[ethjs-signer] invalid private key value, private key must be a prefixed hexified 32 byte string (i.e. "0x..." 64 chars long).'); }
@@ -106,14 +114,23 @@ function sign(transaction, privateKey, toObject) {
   const signature = secp256k1.keyFromPrivate(new Buffer(privateKey.slice(2), 'hex'))
                     .sign((new Buffer(keccak256(rlp.encode(raw)), 'hex')), { canonical: true });
 
-  raw.push(new Buffer([27 + signature.recoveryParam]));
-  raw.push(bnToBuffer(signature.r));
-  raw.push(bnToBuffer(signature.s));
+  const v = new Buffer([27 + signature.recoveryParam]);
+  const r = bnToBuffer(signature.r);
+  const s = bnToBuffer(signature.s);
 
-  return toObject ? raw : `0x${rlp.encode(raw).toString('hex')}`;
+  raw.push(...[v, r, s]);
+
+  return {
+    hash: `0x${keccak256(rlp.encode(raw))}`,
+    v: toObject ? raw : rawToHex(v), 
+    r: toObject ? raw : rawToHex(r), 
+    s: toObject ? raw : rawToHex(s),
+    rawTransaction: toObject ? raw : rawToHex(raw)
+  };
 }
 
 module.exports = {
   sign,
+  signWeb3,
   recover,
 };
