@@ -33,6 +33,7 @@ const transactionFields = [
   { name: 'value', maxLength: 32, number: true },
   { name: 'data' },
   { name: 'metadata' },
+  // TODO: chainId
 ];
 
 /**
@@ -122,10 +123,10 @@ function signWeb3(transaction, privateKey, toObject) {
 
   return {
     hash: `0x${keccak256(rlp.encode(raw))}`,
-    v: toObject ? raw : rawToHex(v), 
-    r: toObject ? raw : rawToHex(r), 
+    v: toObject ? raw : rawToHex(v),
+    r: toObject ? raw : rawToHex(r),
     s: toObject ? raw : rawToHex(s),
-    rawTransaction: toObject ? raw : rawToHex(raw)
+    rawTransaction: toObject ? raw : rawToHex(raw),
   };
 }
 
