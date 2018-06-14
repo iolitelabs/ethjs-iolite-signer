@@ -33,6 +33,7 @@ const transactionFields = [
   { name: 'value', maxLength: 32, number: true },
   { name: 'data' },
   { name: 'metadata' },
+  { name: 'metadataLimit', maxLength: 32, number: true },
   // TODO: chainId
 ];
 

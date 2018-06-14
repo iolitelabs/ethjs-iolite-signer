@@ -27,13 +27,14 @@ describe('recover', () => {
         value: `0x${new BN(0).toString(16)}`,
         data: '0x',
         metadata: '0x',
+        metadataLimit: `0x${new BN(0).toString(16)}`,
       };
       const signedTx = sign(rawTx, testAccount.privateKey, true);
       const signedTxString = sign(rawTx, testAccount.privateKey);
       const publicKey = recover(signedTxString,
-        (new BN(signedTx[7].toString('hex'), 16).toNumber(10)),
-        signedTx[8],
-        signedTx[9]);
+        (new BN(signedTx[8].toString('hex'), 16).toNumber(10)),
+        signedTx[9],
+        signedTx[10]);
       const address = publicToAddress(publicKey);
       assert.equal(address, testAccount.address);
     });
@@ -48,13 +49,14 @@ describe('recover', () => {
         value: `0x${new BN(0).toString(16)}`,
         data: '0x',
         metadata: '0x',
+        metadataLimit: `0x${new BN(0).toString(16)}`,
       };
       const signedTx = sign(rawTx, testAccount.privateKey, true);
       const signedTxBuffer = new Buffer(stripHexPrefix(sign(rawTx, testAccount.privateKey)), 'hex');
       const publicKey = recover(signedTxBuffer,
-        (new BN(signedTx[7].toString('hex'), 16).toNumber(10)),
-        signedTx[8],
-        signedTx[9]);
+        (new BN(signedTx[8].toString('hex'), 16).toNumber(10)),
+        signedTx[9],
+        signedTx[10]);
       const address = publicToAddress(publicKey);
       assert.equal(address, testAccount.address);
     });
