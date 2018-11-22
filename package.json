@@ -1,6 +1,6 @@
 {
   "name": "ethjs-iolite-signer",
-  "version": "0.1.1",
+  "version": "0.2",
   "description": "A simple module for signing iOlite transactions.",
   "main": "lib/index.js",
   "files": [
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/iolite_rnd/ethjs-iolite-signer.git"
+    "url": "git+ssh://git@github.com/iolitelabs/ethjs-iolite-signer.git"
   },
   "keywords": [
     "ethereum",
@@ -42,7 +42,8 @@
     "format",
     "ethereum",
     "encoding",
-    "decoding"
+    "decoding",
+    "iolite"
   ],
   "authors": [
     "Nick Dodson <nick.dodson@consensys.net>"
@@ -52,6 +53,11 @@
       "name": "Richard Moore",
       "email": "me@ricmoo.com",
       "url": "https://ethers.io"
+    },
+    {
+      "name": "Vladyslav Makarian",
+      "email": "vladislav@iolite.io",
+      "url": "https://iolite.io"
     }
   ],
   "engines": {
@@ -60,9 +66,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethjs/ethjs-signer/issues"
+    "url": "https://github.com/iolitelabs/ethjs-iolite-signer/issues"
   },
-  "homepage": "https://github.com/ethjs/ethjs-signer#readme",
+  "homepage": "https://github.com/iolitelabs/ethjs-iolite-signer#readme",
   "babel": {
     "plugins": [
       [
